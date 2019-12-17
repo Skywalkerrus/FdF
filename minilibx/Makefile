@@ -12,6 +12,8 @@
 
 
 all	: do_configure
+	gcc -Wall -Wextra -Werror  -I /usr/X11/include -g -L /usr/X11/lib -l mlx \
+		-framework OpenGL -framework AppKit my_main.c
 
 do_configure	:
 	./configure
