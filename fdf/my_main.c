@@ -6,11 +6,21 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 16:58:22 by bantario          #+#    #+#             */
-/*   Updated: 2019/12/18 19:49:40 by bantario         ###   ########.fr       */
+/*   Updated: 2019/12/20 19:23:20 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static void		init_list(data_t *e)
+{
+	e->scale.x = 30;
+	e->scale.y = -30;
+	e->pos.x = 400;
+	e->pos.y = 400;
+	e->alt = 1;
+	e->color = 0x0E50BA;
+}
 
 int		my_abs(int numb)
 {
@@ -19,6 +29,15 @@ int		my_abs(int numb)
 	if (numb >= 0)
 		return (numb);
 	return (1);
+}
+
+void	invalid_map(int numb)
+{
+	if (numb == 1)
+	{
+		ft_putstr("Map is invalid\n");
+		exit(1);
+	}
 }
 
 static int		get_info(char *filepath, int c)
@@ -41,7 +60,7 @@ static int		get_info(char *filepath, int c)
 		ret = ft_ctword(line, ' ');
 		while (get_next_line(fd, &line) > 0)
 			if (ft_ctword(line, ' ') != ret)
-				return (1);
+				invalid_map(1);
 		close(fd);
 	}
 	return (ret);
@@ -156,24 +175,49 @@ static void	draw_line(int x1, int y1, int x2, int y2, data_t *mlx_ptr, data_t *m
     }
 }
 
+static void		recalc_scale(data_t *e)
+{
+	while (e->scale.x * e->width > WIN_X && e->scale.x > 0)
+		e->scale.x -= 1;
+	while (e->scale.y * e->height < -WIN_Y && e->scale.y < 0)
+		e->scale.y += 1;
+	if (my_abs(e->scale.x) < my_abs(e->scale.y))
+		e->scale.y = -(e->scale.x);
+	else
+		e->scale.x = -(e->scale.y);
+}
+
 int		main(int ac, char **av)
 {
 	data_t        data;
 	int x1, y1, x2, y2;
 
-	if (ac > 0)
+	if (3 > ac > 0)
 	{
+		init_list(&data);
 		parse_args(av[1], &data);
 		read_args(av[1], &data);
+		printf("scale x: %d\n", data.scale.x);
+		printf("scale y: %d\n", data.scale.y);
+		recalc_scale(&data);
+		printf("scale x: %d\n", data.scale.x);
+		printf("scale y: %d\n", data.scale.y);
 		x1 = 0;
 		y1 = 0;
 		x2 = 50;
 		y2 = 50;
 		if ((data.mlx_ptr = mlx_init()) == NULL)
 			return (EXIT_FAILURE);
-		if ((data.mlx_win = mlx_new_window(data.mlx_ptr, 640, 480, "Hello world")) == NULL)
+		if ((data.mlx_win = mlx_new_window(data.mlx_ptr, WIN_X, WIN_Y, "Hello world")) == NULL)
 			return (EXIT_FAILURE);
 		draw_line(x1, y1, x2, y2, data.mlx_ptr, data.mlx_win);
+		if ((data.image = mlx_new_image(data.mlx_ptr, WIN_X, WIN_Y)) == NULL)
+			return(EXIT_FAILURE);
+		data.data_addr = mlx_get_data_addr(data.image, &data.bts_pr_pxl, &data.size_line, &data.endian);
+		printf("bts_pr_pxl: %d\n", data.bts_pr_pxl);
+		printf("size_line: %d\n", data.size_line);
+		printf("endian: %d\n", data.endian);
+		mlx_put_image_to_window(data.mlx_ptr, data.mlx_win, data.image, WIN_X, WIN_Y);
 		mlx_key_hook(data.mlx_win, key_esc, 0);
 		mlx_loop(data.mlx_ptr);
 	}
