@@ -16,6 +16,7 @@
 #include <mlx.h>
 #include "libft/libft.h"
 #include "get_next_line.h"
+#include <math.h>
 
 typedef struct	s_point
 {
