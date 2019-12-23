@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 16:58:22 by bantario          #+#    #+#             */
-/*   Updated: 2019/12/22 20:22:51 by bantario         ###   ########.fr       */
+/*   Updated: 2019/12/23 15:30:07 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,14 +137,6 @@ void	read_args(char *filepath, data_t *env)
 	smallest(env, 0, 0, 1);
 }
 
-int		key_esc(int keycode)
-{
-	if (keycode == 53)
-		exit (0);
-	else
-		return (0);
-} // close when you press 'esc'
-
 static void		recalc_scale(data_t *e)
 {
 	while (e->scale.x * e->width > WIN_X && e->scale.x > 0)
@@ -178,7 +170,7 @@ int		main(int ac, char **av)
 		data.data_addr = mlx_get_data_addr(data.image, &data.bts_pr_pxl, &data.size_line, &data.endian);
 		lines_draw(&data);
 		mlx_put_image_to_window(data.mlx_ptr, data.mlx_win, data.image, WIN_X, WIN_Y);
-		mlx_key_hook(data.mlx_win, key_esc, 0);
+		mlx_key_hook(data.mlx_win, key_click, &data);
 		mlx_mouse_hook(data.mlx_win, mouse_click, &data);
 		mlx_loop(data.mlx_ptr);
 	}
