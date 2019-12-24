@@ -67,8 +67,9 @@ void def_coord(data_t *data)
 		x = 0;
 		while(x < data->width)
 		{
-			data->map[y][x].xp = x * 50;
-			data->map[y][x].yp = y * 50;
+			data->map[y][x].xp = ((cos(0.523599) * (x - y)) * 10) + 300 ;
+			data->map[y][x].yp = (-data->map[y][x].z + ((x + y) * sin(0.723599)) * 10) +300;
+			data->map[y][x].z *= 10;
 			x++;
 		}
 		y++;
@@ -87,7 +88,6 @@ void draw_map(data_t *data)
 //	printf("x1 = %d\n",x1);
 //	printf("y1 = %d\n",y1);
 	def_coord(data);
-	//mlx_clear_window(data->mlx_ptr, data->mlx_win);
 	//int x1 = data->pos.x + data->map[y][x].xp;
 	//int y1 = data->pos.y + data->map[y][x].yp;
 	while(y < data->height)
@@ -96,9 +96,9 @@ void draw_map(data_t *data)
 		//data->map[y][x].xp =  data->pos.x;
 		while(x < data->width)
 		{
-			if (y + 1 < data->height && data->map[y][x].z == 0 && data->map[y + 1][x].z == 0)
+			if (y + 1 < data->height)
 				draw_line(data->map[y][x].xp,data->map[y][x].yp,data->map[y + 1][x].xp,data->map[y + 1][x].yp,data);
-			if (x + 1 < data->width && data->map[y][x].z == 0 && data->map[y][x + 1].z == 0)
+			if (x + 1 < data->width)
 				draw_line(data->map[y][x].xp,data->map[y][x].yp,data->map[y][x +1].xp,data->map[y][x + 1].yp,data);
 
 
@@ -107,7 +107,7 @@ void draw_map(data_t *data)
 //			if (x + 1 < data->width && data->map[y][x].z == 0 && data->map[y][x + 1].z == 0)
 //				draw_line(x1,y1,x1,y1,data);
 			
-			printf("{%d, %d}",data->map[y][x].yp,data->map[y][x].xp);
+			printf("{%d,%d,%d}",data->map[y][x].yp,data->map[y][x].xp,data->map[y][x].z);
 			x+=1;
 		}
 		printf("\n");
@@ -144,7 +144,7 @@ int		main(int ac, char **av)
 //		}
 		if ((data.mlx_ptr = mlx_init()) == NULL)
 			return (EXIT_FAILURE);
-		if ((data.mlx_win = mlx_new_window(data.mlx_ptr, 2000, 2000, "Hello world")) == NULL)
+		if ((data.mlx_win = mlx_new_window(data.mlx_ptr, 1000, 1000, "Hello world")) == NULL)
 			return (EXIT_FAILURE);
 		draw_map(&data);
 		mlx_key_hook(data.mlx_win, key_esc, 0);
