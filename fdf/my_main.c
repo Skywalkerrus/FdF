@@ -105,18 +105,17 @@ void	read_args(char *filepath, data_t *env)
 	while (get_next_line(fd, &line) > 0)
 	{
 		line_split = ft_strsplit(line, ' ');
-		printf("\n");
 		while (*line_split != NULL)
 		{
 			env->map[y][x].z = ft_atoi(*line_split);
-			printf("%d", env->map[y][x].z);
-			smallest(env, x, y, 0);
-			printf("%d", env->map[y][x].z0);
+			//smallest(env, x, y, 0);
 			env->map[y][x].z0 = env->map[y][x].z;
 			
 			x++;
 			line_split++;
+			//printf("%s", *line_split);
 		}
+		//printf("\n");
 		x = 0;
 		y++;
 	}
@@ -139,10 +138,10 @@ static void	draw_line(int x1, int y1, int x2, int y2, data_t *mlx_ptr, data_t *m
     int signX = x1 < x2 ? 1 : -1;
     int signY = y1 < y2 ? 1 : -1;
     int error = deltaX - deltaY;
-	mlx_pixel_put(mlx_ptr, mlx_win, x2, y2, 181530);
+	mlx_pixel_put(mlx_ptr, mlx_win, x2, y2, 181550);
     while(x1 != x2 || y1 != y2) 
 	{
-		mlx_pixel_put(mlx_ptr, mlx_win, x1, y1, 181530);
+		mlx_pixel_put(mlx_ptr, mlx_win, x1, y1, 181560);
         const int error2 = error * 2;
         if (error2 > -deltaY) 
 		{
@@ -174,18 +173,18 @@ void			draw_lines(data_t *e, int x, int y)
 {
 	t_coord p[2];
 	
-	p[0].x = e->map[y][x].xp;
-	p[0].y = e->map[y][x].yp;
+	p[0].x = e->map[y][x].xp+e->pos.x;
+	p[0].y = e->map[y][x].yp+e->pos.y;
 	if (x < e->width - 1)
 	{
-		p[1].x = e->map[y][x + 1].xp;
-		p[1].y = e->map[y][x + 1].yp;
+		p[1].x = e->map[y][x + 1].xp+e->pos.x;
+		p[1].y = e->map[y][x + 1].yp+e->pos.y;
 		draw_line(p[0].x,p[0].y,p[1].x,p[1].y,e->mlx_ptr,e->mlx_win);
 	}
 	if (y < e->height - 1)
 	{
-		p[1].x = e->map[y + 1][x].xp;
-		p[1].y = e->map[y + 1][x].yp;
+		p[1].x = e->map[y + 1][x].xp+e->pos.x;
+		p[1].y = e->map[y + 1][x].yp+e->pos.y;
 		draw_line(p[0].x,p[0].y,p[1].x,p[1].y,e->mlx_ptr,e->mlx_win);
 	}
 }
@@ -194,7 +193,7 @@ static int	proj_x(int x, int y, data_t *e)
 {
 	double ret;
 	
-	ret = (3 * (x - y));
+	ret = (cos(0.523599) * (x - y));
 	ret *=  e->scale.x;
 	return ((int)ret);
 }
@@ -203,38 +202,11 @@ static int	proj_y(int x, int y, data_t *e)
 {
 	double ret;
 	
-	ret = (sqrt(3 / 2) * e->map[y][x].z);
-	ret -= (1 / sqrt(6) * (x + y));
-	ret *= e->scale.y;
+	ret = -e->map[y][x].z + ((x + y) * sin(0.723599));
+	ret *= -e->scale.y;
 	return ((int)ret);
 }
 
-void		apply_height(data_t *e, int c)
-{
-	int x;
-	int y;
-	
-	x = 0;
-	y = 0;
-	while (y < e->height)
-	{
-		while (x < e->width)
-		{
-			if (e->map[y][x].z0 != 0)
-			{
-				if (c == 1)
-					e->map[y][x].z = (e->map[y][x].z0 * e->alt);
-				else
-					e->map[y][x].z = (e->map[y][x].z0 * e->alt);
-				e->map[y][x].xp = proj_x(x, y, e);
-				e->map[y][x].yp = proj_y(x, y, e);
-			}
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-}
 
 void		apply_proj(data_t *e)
 {
@@ -281,37 +253,40 @@ void			draw_again(data_t *e)
 static void		init_env(data_t *e)
 {
 	e->mlx_ptr = mlx_init();
-		//return ();
-	e->scale.x = 100;
-	e->scale.y = -100;
-	e->pos.x = 100;
-	e->pos.y = 100;
-	e->alt = 1;
-	//e->color = CZ;
+	e->scale.x = 20;
+	e->scale.y = -20;
+	e->pos.x = 400;
+	e->pos.y = 400;
 }
 
 int		main(int ac, char **av)
 {
 	data_t        data;
-	int x1, y1, x2, y2;
-
+	
+	int i = 0;
+	int j = 0;
 	if (ac == 2)
 	{
+		init_env(&data);
 		parse_args(av[1], &data);
 		read_args(av[1], &data);
-		x1 = 0;
-		y1 = 0;
-		x2 = 50;
-		y2 = 50;
+		while (j < data.height)
+		{
+			i = 0;
+			while (i < data.width)
+			{
+				printf("%d ",data.map[j][i].z);
+				i++;
+			}
+			printf("\n");
+			j++;
+		}
+
 		if ((data.mlx_ptr = mlx_init()) == NULL)
 			return (EXIT_FAILURE);
-		init_env(&data);
 		recalc_scale(&data);
-		printf("\nscale.x = %d\n",data.scale.x);
-		printf("scale.y = %d\n",data.scale.y);
-		if ((data.mlx_win = mlx_new_window(data.mlx_ptr, 4000, 4000, "Hello world")) == NULL)
+		if ((data.mlx_win = mlx_new_window(data.mlx_ptr, 1000, 1000, "Hello world")) == NULL)
 			return (EXIT_FAILURE);
-//		draw_line(x1, y1, x2, y2, data.mlx_ptr, data.mlx_win);
 		draw_again(&data);
 		mlx_key_hook(data.mlx_win, key_esc, 0);
 		mlx_loop(data.mlx_ptr);

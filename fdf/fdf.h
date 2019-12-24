@@ -47,3 +47,7 @@ typedef struct    data_s
 }					data_t;
 
 int		get_next_line(const int fd, char **line);
+int get_height(char *argv);
+int get_width(char *argv);
+void			parse_args(char *filepath, data_t *env);
+void	read_args(char *filepath, data_t *env);
