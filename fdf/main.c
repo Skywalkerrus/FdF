@@ -118,7 +118,7 @@ void draw_map(data_t *data)
 			if (y + 1 < data->height)
 				draw_line(data->map[y][x].xp,data->map[y][x].yp,data->map[y + 1][x].xp,data->map[y + 1][x].yp,data);
 			if (x + 1 < data->width)
-				draw_line(data->map[y][x].xp,data->map[y][x].yp,data->map[y][x +1].xp,data->map[y][x + 1].yp,data);
+				draw_line(data->map[y][x].xp,data->map[y][x].yp,data->map[y][x + 1].xp,data->map[y][x + 1].yp,data);
 			printf("{%d,%d,%d}",data->map[y][x].yp,data->map[y][x].xp,data->map[y][x].z);
 			x+=1;
 		}

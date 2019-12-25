@@ -14,18 +14,17 @@
 
 int		key_click_2(data_t *e)
 {
-	if (e->pos.x > 1000 || e->pos.y > 1000)
-	{
+	if (e->pos.x > WIN_X )
 		e->pos.x = 0;
+	else if(e->pos.y > WIN_Y)
 		e->pos.y = 0;
-	}
-	else if (e->pos.x < -100 || e->pos.y < -100)
-	{
-		e->pos.x = 900;
-		e->pos.y = 900;
-	}
+	else if (e->pos.x < 0)
+		e->pos.x = WIN_X;
+	else if (e->pos.y < 0)
+		e->pos.y = WIN_Y;
 	mlx_clear_window(e->mlx_ptr, e->mlx_win);
-	lines_draw(e);
+
+	draw_map(e);
 	return (0);
 }
 
@@ -34,24 +33,38 @@ int		key_click(int keycode, data_t *e)
 	if (keycode == 53)
 		exit (0);
 	else if (keycode == 126)
-	{
 		e->pos.y -= 30;
-		e->pos.x -= 30; // pravo
-	}
 	else if (keycode == 125)
-	{
 		e->pos.y += 30;
-		e->pos.x += 30;
-	}
 	else if (keycode == 124)
-	{
-		e->pos.y -= 30;
 		e->pos.x += 30;
-	}
 	else if (keycode == 123)
-	{
 		e->pos.x -= 30;
-		e->pos.y += 30;
+	if (keycode == 69)
+	{
+		e->scale.x += 2;
+		e->scale.y += 2;
+	}
+	if (keycode == 78)
+	{
+		e->scale.x -= 2;
+		e->scale.y -= 2;
+	}
+	if (keycode == 91)
+	{
+		mlx_clear_window(e->mlx_ptr, e->mlx_win);
+		rot_x(e);
+		draw_map(e);
+	}
+	if (keycode == 13)
+	{
+		e->alt += 1;
+		apply_height(e, 1);
+	}
+	if (keycode == 1)
+	{
+		e->alt -= 1;
+		apply_height(e, -1);
 	}
 	else
 		printf("key_code: %d\n", keycode);
