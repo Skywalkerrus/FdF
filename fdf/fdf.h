@@ -18,6 +18,8 @@
 #include "get_next_line.h"
 #include <math.h>
 
+#define WIN_X  640
+#define WIN_Y  480
 typedef struct	s_point
 {
 	int	z;
@@ -39,6 +41,7 @@ typedef struct    data_s
 	t_point			**map;
 	t_coord			scale;
 	t_coord	pos;
+	int zoom;
 	int		height;
 	int		width;
 	int		alt;
