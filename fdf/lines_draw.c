@@ -6,11 +6,12 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:53:30 by bantario          #+#    #+#             */
-/*   Updated: 2019/12/24 21:19:30 by bantario         ###   ########.fr       */
+/*   Updated: 2019/12/25 20:30:08 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <math.h>
 
 void	lines_draw(data_t *data)
 {
@@ -26,7 +27,7 @@ void	lines_draw(data_t *data)
 	i = 0;
 	j = 0;
 	cx2 = (data->pos.x - data->pos.y);
-	cy2 = (data->pos.x + data->pos.y) / 2;
+	cy2 = (data->pos.x + data->pos.y) / 2; 
 	while (y < data->height)
 	{
 		x = 0;
@@ -34,7 +35,7 @@ void	lines_draw(data_t *data)
 		{
 			if (y + 1 < data->height && data->map[y][x].z == 0 && data->map[y + 1][x].z == 0)
 				draw_line(cx2, cy2, cx2 - 30, cy2 + 15, data);
-			if (y + 1 < data->height && (/*data->map[y][x].z == 1 ||*/ data->map[y + 1][x].z == 1))
+			if (y + 1 < data->height && (data->map[y - 1][x].z == 1 || data->map[y + 1][x].z == 1))
 			{
 				draw_line(cx2 - 30, cy2 - 30, cx2 - 60, cy2 + 30, data);
 				draw_line(cx2, cy2, cx2 - 30, cy2 - 30, data);
@@ -58,4 +59,6 @@ void	lines_draw(data_t *data)
 		i += 30;
 		y++;
 	}
+mlx_string_put(data->mlx_ptr, data->mlx_win, 0 , 0, FV, ft_strjoin("Pos.x: ", ft_itoa(data->pos.x)));
+mlx_string_put(data->mlx_ptr, data->mlx_win, 0 , 30, FV, ft_strjoin("Pos.y: ", ft_itoa(data->pos.y)));
 }

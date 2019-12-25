@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 16:58:22 by bantario          #+#    #+#             */
-/*   Updated: 2019/12/23 15:30:07 by bantario         ###   ########.fr       */
+/*   Updated: 2019/12/25 19:39:30 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static void		init_list(data_t *e)
 {
 	e->scale.x = 30;
-	e->scale.y = -30;
+	e->scale.y = 30;
 	e->pos.x = 400;
 	e->pos.y = 400;
 	e->alt = 1;
@@ -149,6 +149,12 @@ static void		recalc_scale(data_t *e)
 		e->scale.x = -(e->scale.y);
 }
 
+int		win_close(data_t *e)
+{
+	(void)e;
+	exit (0);
+}
+
 int		main(int ac, char **av)
 {
 	data_t        data;
@@ -165,13 +171,10 @@ int		main(int ac, char **av)
 			return (EXIT_FAILURE);
 		if ((data.mlx_win = mlx_new_window(data.mlx_ptr, WIN_X, WIN_Y, "Hello world")) == NULL)
 			return (EXIT_FAILURE);
-		if ((data.image = mlx_new_image(data.mlx_ptr, WIN_X, WIN_Y)) == NULL)
-			return(EXIT_FAILURE);
-		data.data_addr = mlx_get_data_addr(data.image, &data.bts_pr_pxl, &data.size_line, &data.endian);
 		lines_draw(&data);
-		mlx_put_image_to_window(data.mlx_ptr, data.mlx_win, data.image, WIN_X, WIN_Y);
 		mlx_key_hook(data.mlx_win, key_click, &data);
 		mlx_mouse_hook(data.mlx_win, mouse_click, &data);
+		mlx_hook(data.mlx_win, 17, 0, win_close, &data);
 		mlx_loop(data.mlx_ptr);
 	}
 	return (EXIT_SUCCESS);

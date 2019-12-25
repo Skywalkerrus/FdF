@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 15:30:18 by bantario          #+#    #+#             */
-/*   Updated: 2019/12/23 20:57:43 by bantario         ###   ########.fr       */
+/*   Updated: 2019/12/25 18:42:23 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,25 @@
 
 int		key_click_2(data_t *e)
 {
-	if (e->pos.x > 1000 || e->pos.y > 1000)
+	if (e->pos.y < -260  || e->pos.x > 1000)
 	{
-		e->pos.x = 0;
-		e->pos.y = 0;
+		e->pos.x = 130;
+		e->pos.y = 610;
 	}
-	else if (e->pos.x < -100 || e->pos.y < -100)
+	else if (e->pos.x < 130 || e->pos.y > 610)
 	{
 		e->pos.x = 900;
-		e->pos.y = 900;
+		e->pos.y = -200;
+	}
+	else if (e->pos.x < 160 || e->pos.y < -170)
+	{
+		e->pos.x = 1000;
+		e->pos.y = 550;
+	}
+	else if (e->pos.x > 1000 || e->pos.y > 600)
+	{
+		e->pos.x = 160;
+		e->pos.x = -170;
 	}
 	mlx_clear_window(e->mlx_ptr, e->mlx_win);
 	lines_draw(e);

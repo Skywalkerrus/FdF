@@ -6,11 +6,13 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 19:09:35 by bantario          #+#    #+#             */
-/*   Updated: 2019/12/22 20:22:40 by bantario         ###   ########.fr       */
+/*   Updated: 2019/12/25 20:02:33 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+
 
 int		mouse_click(int key, int x, int y, data_t *e)
 {
@@ -30,5 +32,7 @@ int		mouse_click(int key, int x, int y, data_t *e)
 			e->color = O;
 		lines_draw(e);
 	}
+	else
+		printf("mouse_click: %d\n", key);
 	return (0);
 }

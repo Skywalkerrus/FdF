@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 16:26:45 by bantario          #+#    #+#             */
-/*   Updated: 2019/12/23 15:34:07 by bantario         ###   ########.fr       */
+/*   Updated: 2019/12/25 17:31:44 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct    data_s
 {
 	void          *mlx_ptr;
 	void          *mlx_win;
+	void			*mlx_win1;
 	void			*image;
 	void			*data_addr;
 	t_point			**map;
