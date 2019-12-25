@@ -67,3 +67,4 @@ int			my_abs(int numb);
 void		draw_line(int x1, int y1, int x2, int y2, data_t *e);
 void			lines_draw(data_t *data);
 int				get_next_line(const int fd, char **line);
+void 			draw_map(data_t *data);

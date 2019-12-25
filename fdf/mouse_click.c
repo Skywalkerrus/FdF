@@ -28,7 +28,8 @@ int		mouse_click(int key, int x, int y, data_t *e)
 			e->color = FV;
 		else
 			e->color = O;
-		lines_draw(e);
+		draw_map(e);
+		//lines_draw(e);
 	}
 	return (0);
 }
