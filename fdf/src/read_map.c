@@ -1,5 +1,21 @@
-#include "fdf.h"
+#include "../includes/fdf.h"
 
+void		smallest(data_t *e, int x, int y)
+{
+	if (!e->smallest)
+		e->smallest = 1;
+	while (y < e->height)
+	{
+		while (x < e->width)
+		{
+			e->map[y][x].z /= e->smallest;
+			e->map[y][x].z0 /= e->smallest;
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+}
 
 int get_height(char *argv)
 {
@@ -25,9 +41,9 @@ int get_width(char *argv)
 	fd = open(argv, O_RDONLY);
 	get_next_line(fd,&line);
 	width = ft_ctword(line,' ');
-//	while (get_next_line(fd, &line) > 0)
-//		if (ft_ctword(line, ' ') != width)
-//			return (1);
+	while (get_next_line(fd, &line) > 0)
+		if (ft_ctword(line, ' ') != width)
+			errors(1);
 	close(fd);
 	return (width);
 }
@@ -37,8 +53,8 @@ void			parse_args(char *filepath, data_t *env)
 	int index;
 	
 	index = 0;
-	env->height = get_height(filepath);
-	env->width = get_width(filepath);
+	env->height = get_height(filepath); //dlyna
+	env->width = get_width(filepath); // shirina
 	env->map = (t_point **)malloc(sizeof(t_point *) * env->height);
 	while (index < env->height)
 	{
@@ -61,16 +77,18 @@ void	read_args(char *filepath, data_t *env)
 	fd = open(filepath, O_RDONLY);
 	while (get_next_line(fd, &line) > 0)
 	{
-		x = 0;
 		line_split = ft_strsplit(line, ' ');
 		while (*line_split != NULL)
 		{
 			env->map[y][x].z = ft_atoi(*line_split);
+			max_z(env, x, y);
+			env->map[y][x].z0 = env->map[y][x].z;
 			x++;
 			line_split++;
 		}
+		x = 0;
 		y++;
 	}
 	close(fd);
+	smallest(env, 0, 0);
 }
-

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../includes/get_next_line.h"
 #include <stdio.h>
 
 static void		*ft_memchrr(char *s, int c, size_t j)

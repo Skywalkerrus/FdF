@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 int		key_click_2(data_t *e)
 {
@@ -53,18 +53,18 @@ int		key_click(int keycode, data_t *e)
 	if (keycode == 91)
 	{
 		mlx_clear_window(e->mlx_ptr, e->mlx_win);
-		rot_x(e);
+		//rot_x(e);
 		draw_map(e);
 	}
 	if (keycode == 13)
 	{
 		e->alt += 1;
-		apply_height(e, 1);
+		change_height(e, 1);
 	}
 	if (keycode == 1)
 	{
 		e->alt -= 1;
-		apply_height(e, -1);
+		change_height(e, -1);
 	}
 	else
 		printf("key_code: %d\n", keycode);
