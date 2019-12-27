@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 16:58:22 by bantario          #+#    #+#             */
-/*   Updated: 2019/12/23 15:30:07 by bantario         ###   ########.fr       */
+/*   Updated: 2019/12/25 19:39:30 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,12 @@ void draw_map(data_t *data)
 	}
 }
 
+int		win_close(data_t *e)
+{
+	(void)e;
+	exit (0);
+}
+
 int		main(int ac, char **av)
 {
 	data_t        data;
@@ -228,14 +234,19 @@ int		main(int ac, char **av)
 			return (EXIT_FAILURE);
 		if ((data.mlx_win = mlx_new_window(data.mlx_ptr, WIN_X, WIN_Y, "Hello world")) == NULL)
 			return (EXIT_FAILURE);
+<<<<<<< HEAD
 		if ((data.image = mlx_new_image(data.mlx_ptr, WIN_X, WIN_Y)) == NULL)
 			return(EXIT_FAILURE);
 		data.data_addr = mlx_get_data_addr(data.image, &data.bts_pr_pxl, &data.size_line, &data.endian);
 		draw_map(&data);
 		//lines_draw(&data);
 		mlx_put_image_to_window(data.mlx_ptr, data.mlx_win, data.image, WIN_X, WIN_Y);
+=======
+		lines_draw(&data);
+>>>>>>> 55ed0b2df74c838a9619390c7e24096ecb019e08
 		mlx_key_hook(data.mlx_win, key_click, &data);
 		mlx_mouse_hook(data.mlx_win, mouse_click, &data);
+		mlx_hook(data.mlx_win, 17, 0, win_close, &data);
 		mlx_loop(data.mlx_ptr);
 	}
 	return (EXIT_SUCCESS);

@@ -7,11 +7,15 @@
 /*                                                +#+#+#+#+#+   +#+           */
 <<<<<<< HEAD:fdf/fdf.h
 /*   Created: 2019/12/18 16:26:45 by bantario          #+#    #+#             */
+<<<<<<< HEAD:fdf/src/my_abs.c
 /*   Updated: 2019/12/23 15:34:07 by bantario         ###   ########.fr       */
 =======
 /*   Created: 2019/12/22 16:07:07 by bantario          #+#    #+#             */
 /*   Updated: 2019/12/27 13:14:18 by bglinda          ###   ########.fr       */
 >>>>>>> Mrr:fdf/src/my_abs.c
+=======
+/*   Updated: 2019/12/25 17:31:44 by bantario         ###   ########.fr       */
+>>>>>>> 55ed0b2df74c838a9619390c7e24096ecb019e08:fdf/fdf.h
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +51,7 @@ typedef struct    data_s
 {
 	void          *mlx_ptr;
 	void          *mlx_win;
+	void			*mlx_win1;
 	void			*image;
 	void			*data_addr;
 	t_point			**map;
