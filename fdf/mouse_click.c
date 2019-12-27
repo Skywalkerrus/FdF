@@ -30,8 +30,7 @@ int		mouse_click(int key, int x, int y, data_t *e)
 			e->color = FV;
 		else
 			e->color = O;
-		draw_map(e);
-		//lines_draw(e);
+		lines_draw(e);
 	}
 	else
 		printf("mouse_click: %d\n", key);

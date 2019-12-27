@@ -1,34 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_2.c                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/28 18:57:54 by bantario          #+#    #+#             */
-/*   Updated: 2019/11/28 19:22:11 by bantario         ###   ########.fr       */
+/*   Created: 2019/04/27 13:54:16 by bantario          #+#    #+#             */
+/*   Updated: 2019/05/29 13:58:19 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# include "libft/libft.h"
+# define BUFF_SIZE 37
+# define GO 10240
 
-char	*ft_itoa_2(unsigned long long n)
-{
-	char			*chs;
-	int				size;
-	unsigned long long	y;
-
-	size = 2;
-	y = n;
-	while (y /= 10)
-		size++;
-	if ((chs = (char *)malloc(sizeof(char) * (size))) == NULL)
-		return (NULL);
-	chs[--size] = '\0';
-	while (size--)
-	{
-		chs[size] = n % 10 + '0';
-		n = n / 10;
-	}
-	return (chs);
-}
+int get_next_line(const int fd, char **line);
+#endif

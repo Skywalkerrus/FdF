@@ -16,13 +16,8 @@ int		key_click_2(data_t *e)
 {
 	if (e->pos.y < -260  || e->pos.x > 1000)
 	{
-<<<<<<< HEAD
-		e->pos.x = 0;
-		//e->pos.y = 0;
-=======
 		e->pos.x = 130;
 		e->pos.y = 610;
->>>>>>> 55ed0b2df74c838a9619390c7e24096ecb019e08
 	}
 	else if (e->pos.x < 130 || e->pos.y > 610)
 	{
@@ -40,8 +35,7 @@ int		key_click_2(data_t *e)
 		e->pos.x = -170;
 	}
 	mlx_clear_window(e->mlx_ptr, e->mlx_win);
-	//lines_draw(e);
-	draw_map(e);
+	lines_draw(e);
 	return (0);
 }
 
@@ -52,22 +46,22 @@ int		key_click(int keycode, data_t *e)
 	else if (keycode == 126)
 	{
 		e->pos.y -= 30;
-		//e->pos.x -= 30;
+		e->pos.x -= 30; // pravo
 	}
 	else if (keycode == 125)
 	{
 		e->pos.y += 30;
-		//e->pos.x += 30;
+		e->pos.x += 30;
 	}
 	else if (keycode == 124)
 	{
-		//e->pos.y -= 30;
+		e->pos.y -= 30;
 		e->pos.x += 30;
 	}
 	else if (keycode == 123)
 	{
 		e->pos.x -= 30;
-		//e->pos.y += 30;
+		e->pos.y += 30;
 	}
 	else
 		printf("key_code: %d\n", keycode);
