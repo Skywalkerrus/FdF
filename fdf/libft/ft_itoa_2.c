@@ -6,16 +6,16 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:57:54 by bantario          #+#    #+#             */
-/*   Updated: 2019/11/28 19:22:11 by bantario         ###   ########.fr       */
+/*   Updated: 2019/12/27 14:29:19 by bglinda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_itoa_2(unsigned long long n)
+char					*ft_itoa_2(unsigned long long n)
 {
-	char			*chs;
-	int				size;
+	char				*chs;
+	int					size;
 	unsigned long long	y;
 
 	size = 2;

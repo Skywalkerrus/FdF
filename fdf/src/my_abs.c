@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   my_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< HEAD:fdf/fdf.h
 /*   Created: 2019/12/18 16:26:45 by bantario          #+#    #+#             */
 /*   Updated: 2019/12/23 15:34:07 by bantario         ###   ########.fr       */
+=======
+/*   Created: 2019/12/22 16:07:07 by bantario          #+#    #+#             */
+/*   Updated: 2019/12/27 13:14:18 by bglinda          ###   ########.fr       */
+>>>>>>> Mrr:fdf/src/my_abs.c
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <mlx.h>
-#include "libft/libft.h"
-#include "get_next_line.h"
+#include "../includes/fdf.h"
 
+<<<<<<< HEAD:fdf/fdf.h
 #define WIN_X 1000
 #define WIN_Y 1000
 
@@ -68,3 +69,13 @@ void		draw_line(int x1, int y1, int x2, int y2, data_t *e);
 void			lines_draw(data_t *data);
 int				get_next_line(const int fd, char **line);
 void 			draw_map(data_t *data);
+=======
+int		my_abs(int numb)
+{
+	if (numb < 0)
+		return (numb * (-1));
+	if (numb >= 0)
+		return (numb);
+	return (1);
+}
+>>>>>>> Mrr:fdf/src/my_abs.c
