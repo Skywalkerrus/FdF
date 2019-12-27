@@ -17,10 +17,12 @@ NAME = fdf
 
 IDIR = ./includes/
 INCS = libft.h	\
-	   fdf.h
+	   fdf.h \
+	   get_next_line.h
 
 SDIR = ./src/
-SRCS = my_main.c get_next_line.c drawing.c mouse_click.c my_abs.c read_map.c  key_click.c iso.c
+SRCS = my_main.c get_next_line.c drawing.c mouse_click.c \
+       my_abs.c read_map.c  key_click.c iso.c
 
 SRCC = $(addprefix $(SDIR),$(SRCS))
 
@@ -31,7 +33,8 @@ FLAG = -Wall -Werror -Wextra
 $(NAME):
 	@make fclean -C ./libft/ && make -C ./libft/
 	gcc $(FLAG) -c $(SRCC) -I$(IDIR)
-	gcc $(FLAG) $(OBJS) ./libft/libft.a -L/usr/local/lib/ -I/usr/local/include -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	gcc $(FLAG) $(OBJS) ./libft/libft.a -L/usr/local/lib/ \
+	-I/usr/local/include -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 all: $(NAME)
 

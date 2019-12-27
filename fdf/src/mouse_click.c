@@ -6,13 +6,13 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 19:09:35 by bantario          #+#    #+#             */
-/*   Updated: 2019/12/22 20:22:40 by bantario         ###   ########.fr       */
+/*   Updated: 2019/12/27 13:15:33 by bglinda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int		mouse_click(int key, int x, int y, data_t *e)
+int		mouse_click(int key, int x, int y, t_data *e)
 {
 	if (key == 1 && x && y)
 	{
@@ -29,18 +29,6 @@ int		mouse_click(int key, int x, int y, data_t *e)
 		else
 			e->color = O;
 		draw_map(e);
-		//lines_draw(e);
 	}
-	if (key == 4 && x && y)
-	{
-		e->scale.x +=1;
-		e->scale.y +=1;
-	}
-	if (key == 5 && x && y)
-	{
-		e->scale.x -=1;
-		e->scale.y -=1;
-	}
-	
 	return (0);
 }

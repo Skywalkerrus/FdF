@@ -13,14 +13,15 @@
 #include "../includes/fdf.h"
 #include <math.h>
 
-void		init_list(data_t *e)
+void		init_list(t_data *e)
 {
 	e->scale.x = 30;
 	e->scale.y = 30;
-	e->pos.x = 400;
-	e->pos.y = 400;
+	e->pos.x = (int)WIN_X * 0.4;
+	e->pos.y = (int)WIN_Y * 0.3;
 	e->alt = 1;
 	e->color = O;
+	e->zoom = e->scale.x;
 }
 
 void		errors(int numb)
@@ -37,7 +38,7 @@ void		errors(int numb)
 	}
 }
 
-void		put_str_on_win(data_t *e)
+void		put_str_on_win(t_data *e)
 {
 	mlx_string_put(e->mlx_ptr, e->mlx_win, 0, 0,
 			e->color, ft_strjoin("Position X: ", ft_itoa(e->pos.x)));
@@ -56,7 +57,7 @@ void		put_str_on_win(data_t *e)
 
 int			main(int ac, char **av)
 {
-	data_t		data;
+	t_data		data;
 
 	if (ac != 2)
 		errors(2);
